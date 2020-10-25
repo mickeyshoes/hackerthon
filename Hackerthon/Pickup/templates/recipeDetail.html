@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'base.html' %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+
+  {% block content %}
+  <!-- 레시피 제목 -->
+  <h1>{{ post.recipe_name.recipe_name }}</h1>
+  <!-- 레시피 사진 -->
+  {% if post.recipe_name.recipe_image is not None %}
+  <img src="{{ post.recipe_name.recipe_image.url }}" alt="" width="500px">
+  {% endif %}
+  <!-- 레시피 설명 -->
+  <article class="blog__article">
+
+    <p>{{ post.body }}</p>
+
+    <hr>
+    <h3>재료</h3>
+    <p>
+      {% for ingredient in ingredients %}
+      {{ ingredient.ingredients }}
+      {% endfor %}
+    </p>
+  </article>
+  <!-- 후기는 블로그 형식 -->
+
+  <a href="{% url 'pickup:reviewCreate' post.id%}">
+    <button class="button-post">리뷰 쓰러가기</button>
+  </a>
+  <a href="{% url 'tracking:get_order' post.recipe_name.id%}">
+    <button>주문 하러가기</button>
+  </a>
+  <hr>
+  <h3>다른 회윈님의 후기</h3>
+  <section>
+    {% for review in reviews %}
+    <article class="post">
+      <a href="{% url 'pickup:reviewDetail' review.id %}">
+        <h1> {{review.review_user}}님의 레시피 </h1>
+      </a>
+      {% if review.review_image.url is not None %}
+      <img src="{{ review.review_image.url }}" alt="review_image" width="500px">
+      {% endif %}
+      <p>{{ review.review_body|truncatechars:31 }}</p>
+      <br />
+      <div class="post__button-group">
+        <a href="{% url 'pickup:review_update' review.id %}">
+          <button id="post__button">수정하기</button>
+        </a>
+        <a href="{% url 'pickup:reviewDelete' review.id %}">
+          <button id="post__button">삭제하기</button>
+        </a>
+      </div>
+    </article>
+    <hr>
+    {% endfor %}
+  </section>
+
+
+  <!-- QnA 댓글로 구현 -->
+  <h3>Q&A</h3>
+  <form method="POST" action="{% url 'pickup:pickQnaCreate' post.id %}">
+    {% csrf_token %}
+    <input type="text" name="Qna_comment"></input>
+    <input type="submit" value="작성"></input>
+  </form>
+
+  {% for Qna in Qnas %}
+  <div class="eachcomment">
+    <h4>Q : {{ Qna.comment }}</h4>
+  </div>
+
+  <a href="{% url 'pickup:qnaDelete' Qna.id %}">
+    <button id="post__button">삭제하기</button>
+  </a>
+
+  </div>
+  </div>
+  {% endfor %}
+
+  {% endblock %}
+</body>
+
+</html>

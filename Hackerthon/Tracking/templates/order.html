@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% block content %}
+
+    <h2>주문하기</h2>
+    <h3>주문 메뉴 : {{recipe.recipe_name}}</h3>
+
+    {% if recipe.recipe_image.url is not None%}
+    <img src="{{recipe.recipe_image.url}}">
+    {% endif%}
+
+    <form method="POST" action="{% url 'tracking:check_order_list'%}">
+        {% csrf_token %}
+
+        <h2>재료 선택</h2>
+        {% for key, values in recipe_ingred%}
+        {{key}}
+        <select name="{{key}}">
+            {% for v in values%}
+            <option value="{{v}}">{{v}}</option>
+            {% endfor %}
+        </select>
+        {% endfor %}
+
+        <br><br>
+
+        <input type="button" id='add' value="가격 조회">
+        <p id="request_content"></p>
+
+        <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+        <script>
+            $('#add').click(function () {
+
+                $.ajax({
+                    url: "{%url 'tracking:add_order_price' %}",
+                    data: { 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (response) {
+                        var str = "<span>" + response.content + "<span>";
+                        $('#request_content').html(str);
+                    },
+                    error: function (request, status, error) {
+                        alert("fail");
+                        alert(error)
+                    },
+
+                });
+
+            });
+        </script>
+
+
+        <h2>주소지</h2>
+        <input type="text" name='address' placeholder="주소 입력">
+
+        <br><br>
+        <input type="submit" value="주문하기">
+
+    </form>
+
+    {% endblock %}
+
+</body>
+
+</html>

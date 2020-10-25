@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="{% url 'pickup:reviewCreate' id%}" method="POST">
+    {% csrf_token %}
+    사진 :
+    <input title="Click to select file or drag n drop it here" type="file" name="review-img" id="document_file"
+      accept="image/png, image/jpeg" />
+    <p>
+      내용 :
+      <textarea name="textfield" cols="30" rows="10"></textarea>
+    </p>
+    <input type="submit" value="글 저장" />
+  </form>
+</body>
+
+</html>

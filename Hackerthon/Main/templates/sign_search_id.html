@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form method="GET">
+        핸드폰번호 : <input type="text" name='phonenumber'>
+        <button id='content_btn'>찾기</button>
+    </form>
+    <a href="{% url 'main:main' %}"><button>홈으로</button></a>
+    <script src=https://code.jquery.com/jquery-3.5.0.min.js></script>
+    <script>
+        $('#content_btn').click(function () {
+            var numbers = $("input[name=phonenumber]").val();
+            $.ajax({
+                url: "{% url 'sign_search_id' %}",
+                dataType: 'json',
+                data: { 'phonenumber': numbers },
+                success: function (response) {
+                    alert(response.content);
+                }, error: function (request, statusm, error) {
+                    alert("전송실패");
+                    alert("error");
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

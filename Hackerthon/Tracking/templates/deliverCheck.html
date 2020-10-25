@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    {% block content %}
+
+    {% if user.is_authenticated %}
+    <h2>배송목록 조회</h2>
+
+    <div>
+        <ul style="text-align: center;">
+            <li style="display: inline-block;"><button class="btn">전체</button></li>
+            <li style="display: inline-block;"><button class="btn">배송중</button></li>
+            <li style="display: inline-block;"><button class="btn">배송완료</button></li>
+        </ul>
+    </div>
+
+    {% for data in datalists %}
+    <div>주문 시간 : { data.deliver_info.order_date}</div>
+    <div>배송 주소 : { data.deliver_info.deliver_address}</div>
+    <div>주문 내역 : {}</div>
+
+    {% endfor %}
+
+    {% else %}
+    <script>
+        alert_close("로그인 후 이용가능합니다.", "{% url 'main:sign_in'%}")
+    </script>
+    {% endif %}
+
+
+    {% endblock %}
+</body>
+
+</html>

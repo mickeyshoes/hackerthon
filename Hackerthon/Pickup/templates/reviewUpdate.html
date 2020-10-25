@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="{% url 'pickup:review_update' review.id %}" method="POST">
+      {% csrf_token %}
+      사진 :
+      <input title="수정하시겠습니까?" type="file" name="review-img" id="document_file" accept="image/png, image/jpeg" />
+      <p>
+        내용 :
+        <textarea name="textfield" cols="30" rows="10">{{ review.review_body }}</textarea>
+      </p>
+      <input type="submit" value="글 저장" />
+    </form>
+  </body>
+</html>
