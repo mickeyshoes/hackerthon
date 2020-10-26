@@ -17,7 +17,7 @@
     <a href="{%url 'main:sign_up'%}"><button class="btn">회원가입</button></a>
     {% endif %}
     <a href="{%url 'main:sign_search' %}"><button class="btn">회원찾기</button></a>
-   
+
     {%if user.is_authenticated%}
     <a href="{%url 'main:sign_out'%}"><button class="btn">로그아웃</button></a>
     <a href="{%url 'main:sign_search' %}"><button class="btn">내 주문내역</button></a>
@@ -25,7 +25,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <div>
-                <div class="title">Lotte</div>
+                <div class="title"><img src="./static/logo.png"></div>
+                <br>
                 <div class="maintitle">Cook For Me</div>
             </div>
         </a>

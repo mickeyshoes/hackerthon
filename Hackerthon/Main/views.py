@@ -12,16 +12,19 @@ def main(request):
     return render(request, 'main.html', {"recipes": recipes})
     
 def sign_in(request):
+    
     if request.method == "GET":
         return render(request, "sign_in.html")
+
     elif request.method == "POST":
         userid = request.POST["userid"]
         password = request.POST["pw"]
         user = auth.authenticate(request, username = userid, password = password)
         if user is None:
             return render(request, "sign_in.html")
+        
         auth.login(request, user)
-    return redirect('main:main')
+        return redirect('main:main')
 
 def sign_out(request):
     if request.user.is_authenticated:

@@ -1,17 +1,22 @@
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF - 8">
     <title>Docuument</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+    <link href="{%static '../static/assets/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css.signin.css'%}" rel="stylesheet">
 </head>
 
 <body>
-    <form action="{% url 'main:sign_in' %}" method="POST">
+    <form class="form-signin" action="{% url 'main:sign_in' %}" method="POST">
         {% csrf_token %}
-       ID : <input type="text" name="userid">
-       PW : <input type="password" name="pw">
-        <input type="submit" value="로그인">
+        ID : <input type="text" name="userid" id="inputEmail" class="form-control" placeholder="ID" required autofocus>
+        PW : <input type="password" name="pw" id="inputPassword" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
+
 </body>
 
 </html>
