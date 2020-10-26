@@ -8,8 +8,8 @@
 <body>
     <form action="{% url 'main:sign_in' %}" method="POST">
         {% csrf_token %}
-        <input type="text" name="userid">
-        <input type="password" name="pw">
+       ID : <input type="text" name="userid">
+       PW : <input type="password" name="pw">
         <input type="submit" value="로그인">
     </form>
 </body>

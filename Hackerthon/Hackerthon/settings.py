@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '7$1@2wb0tx=&9om-p_wq+0kr=r4+l&$8vf93=iv5#wv-yx*9xz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['mickeyshoes.pythonanywhere.com']
 
 
 # Application definition
@@ -123,11 +123,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Pickup', 'static'),
-    os.path.join(BASE_DIR, 'Main', 'static'),
-    os.path.join(BASE_DIR, 'Tracking', 'static'),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'Pickup', 'static'),
+#    os.path.join(BASE_DIR, 'Main', 'static'),
+#    os.path.join(BASE_DIR, 'Tracking', 'static'),
+#]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 
